@@ -58,11 +58,9 @@ SigmaGPT/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/SigmaGPT.git
+git clone https://github.com/SayaliPote/SigmaGPT.git
 cd SigmaGPT
 ```
-
-Replace `YOUR-USERNAME` with your GitHub username.
 
 ### 2. Run the Backend
 
@@ -71,18 +69,14 @@ cd Backend
 npm install
 ```
 
-Create a `.env` file inside the `Backend` folder and add:
+Create a `.env` file inside the `Backend` folder and add your own credentials:
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-Start the backend:
-
-```bash
-npm run dev
-```
+Start the backend using the command configured in your `Backend/package.json`.
 
 ### 3. Run the Frontend
 
@@ -96,4 +90,8 @@ npm run dev
 
 Open the local URL provided by Vite in your browser.
 
+## Future Improvements
 
+- Add user authentication
+- Improve chat response streaming
+- Enhance the interface for mobile devices
