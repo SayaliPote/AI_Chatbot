@@ -3,35 +3,35 @@ import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
 import { useContext, useState, useEffect } from "react";
 import {ScaleLoader} from "react-spinners";
+import Profile from "./Profile.jsx";
+import { useAuth } from "./authState.js";
+import { apiFetch } from "./api.js";
 
 function ChatWindow() {
     const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [showProfile, setShowProfile] = useState(false);
+    const { logout } = useAuth();
 
     const getReply = async () => {
+        if(!prompt.trim() || loading) return;
+
         setLoading(true);
         setNewChat(false);
 
-        console.log("message ", prompt, " threadId ", currThreadId);
-        const options = {
+        const res = await apiFetch("/api/chat", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify({
                 message: prompt,
                 threadId: currThreadId
             })
-        };
+        });
 
-        try {
-            const response = await fetch("http://localhost:8080/api/chat", options);
-            const res = await response.json();
-            console.log(res);
-            setReply(res.reply);
-        } catch(err) {
-            console.log(err);
+        if(res.ok) {
+            setReply(res.data.reply);
+        } else {
+            setReply("Error: " + (res.data?.error || "something went wrong"));
         }
         setLoading(false);
     }
@@ -69,11 +69,15 @@ function ChatWindow() {
             {
                 isOpen && 
                 <div className="dropDown">
-                    <div className="dropDownItem"><i class="fa-solid fa-gear"></i> Settings</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+                    <div className="dropDownItem" onClick={() => {setShowProfile(true); setIsOpen(false);}}>
+                        <i className="fa-solid fa-user"></i> Profile
+                    </div>
+                    <div className="dropDownItem" onClick={logout}>
+                        <i className="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </div>
                 </div>
             }
+            {showProfile && <Profile onClose={() => setShowProfile(false)} />}
             <Chat></Chat>
 
             <ScaleLoader color="#fff" loading={loading}>
@@ -91,7 +95,7 @@ function ChatWindow() {
                     <div id="submit" onClick={getReply}><i className="fa-solid fa-paper-plane"></i></div>
                 </div>
                 <p className="info">
-                   AI Chatbot can make mistakes. Check important info. See Cookie Preferences.
+                    AI Chatbot can make mistakes. Check important info. See Cookie Preferences.
                 </p>
             </div>
         </div>

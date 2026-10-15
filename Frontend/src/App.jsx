@@ -1,11 +1,14 @@
 import './App.css';
 import Sidebar from "./Sidebar.jsx";
 import ChatWindow from "./ChatWindow.jsx";
+import Auth from "./Auth.jsx";
 import {MyContext} from "./MyContext.jsx";
+import { useAuth } from "./authState.js";
 import { useState } from 'react';
 import {v1 as uuidv1} from "uuid";
 
-function App() {
+// the chat screen: only mounted when a user is logged in
+function ChatApp() {
   const [prompt, setPrompt] = useState("");
   const [reply, setReply] = useState(null);
   const [currThreadId, setCurrThreadId] = useState(uuidv1());
@@ -20,14 +23,27 @@ function App() {
     newChat, setNewChat,
     prevChats, setPrevChats,
     allThreads, setAllThreads
-  }; 
+  };
+
+  return (
+    <MyContext.Provider value={providerValues}>
+      <Sidebar></Sidebar>
+      <ChatWindow></ChatWindow>
+    </MyContext.Provider>
+  )
+}
+
+function App() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className='app'></div>;
+  }
 
   return (
     <div className='app'>
-      <MyContext.Provider value={providerValues}>
-          <Sidebar></Sidebar>
-          <ChatWindow></ChatWindow>
-        </MyContext.Provider>
+      {/* key={user.id}: logging in as someone else starts with fresh state */}
+      {user ? <ChatApp key={user.id} /> : <Auth />}
     </div>
   )
 }

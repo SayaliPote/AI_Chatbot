@@ -1,0 +1,98 @@
+.profileOverlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.profileCard {
+    width: 360px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: #2a2a2a;
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-align: left;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.profileHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profileHeader h2 {
+    margin: 0;
+}
+
+.profileClose {
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.profileMeta {
+    margin: 0.3rem 0 0;
+    font-size: 0.85rem;
+    color: #b4b4b4;
+}
+
+.profileCard form {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileCard label {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+
+.profileCard input {
+    background-color: #212121;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.65rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.profileCard input:focus {
+    border-color: #339cff;
+}
+
+.profileCard form button {
+    justify-content: center;
+    margin: 0;
+    padding: 0.6rem;
+    background-color: #339cff;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.dangerButton {
+    width: calc(100% - 20px);
+    justify-content: center;
+    margin: 1.4rem 10px 0;
+    border-color: #d32f2f;
+    color: #ff6b6b;
+}
+
+.profileError {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin: 0.8rem 0 0;
+}
+
+.profileSuccess {
+    color: #5fd08a;
+    font-size: 0.85rem;
+    margin: 0.8rem 0 0;
+}
