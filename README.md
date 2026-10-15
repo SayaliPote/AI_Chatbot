@@ -43,6 +43,11 @@ SigmaGPT/
 │   ├── public/
 │   ├── src/
 │   └── package.json
+├── screenshots/
+│   ├── chat.png
+│   ├── code-reply.png
+│   ├── database.png
+│   └── history.png
 ├── .gitignore
 └── README.md
 ```
@@ -80,7 +85,7 @@ Start the backend using the command configured in your `Backend/package.json`.
 
 ### 3. Run the Frontend
 
-Open another terminal:
+Open another terminal and run:
 
 ```bash
 cd Frontend
